@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   The Sly Old Fox — Bespoke Design System
+   Midnight teal · Ivory · Oxblood · Brass
+   ============================================ */
+
+@layer base {
+  :root {
+    /* Surfaces */
+    --background: 210 38% 8%;          /* deep midnight navy-teal */
+    --background-elevated: 210 32% 11%;
+    --foreground: 38 38% 92%;          /* warm ivory */
+
+    --card: 210 35% 10%;
+    --card-foreground: 38 38% 92%;
+
+    --popover: 210 40% 7%;
+    --popover-foreground: 38 38% 92%;
+
+    /* Brand */
+    --primary: 0 62% 38%;              /* oxblood */
+    --primary-foreground: 38 40% 95%;
+    --primary-glow: 0 70% 48%;
+
+    --accent: 38 55% 62%;              /* champagne brass */
+    --accent-foreground: 195 30% 7%;
+    --accent-soft: 38 35% 75%;
+
+    --secondary: 210 28% 15%;
+    --secondary-foreground: 38 38% 92%;
+
+    --muted: 210 24% 17%;
+    --muted-foreground: 38 15% 65%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 38 40% 95%;
+
+    --border: 210 26% 19%;
+    --input: 210 28% 15%;
+    --ring: 38 55% 62%;
+
+    --radius: 0.25rem;
+
+    /* Gradients & shadows */
+    --gradient-hero: linear-gradient(180deg, hsl(210 38% 8% / 0) 0%, hsl(210 38% 8% / 0.4) 50%, hsl(210 38% 8% / 0.95) 100%);
+    --gradient-brass: linear-gradient(135deg, hsl(38 55% 72%), hsl(38 45% 55%));
+    --gradient-radial: radial-gradient(ellipse at center, hsl(210 32% 13%) 0%, hsl(210 40% 6%) 100%);
+    --shadow-elegant: 0 30px 80px -20px hsl(0 0% 0% / 0.6);
+    --shadow-glow: 0 0 60px hsl(38 55% 62% / 0.15);
+
+    --sidebar-background: 210 38% 8%;
+    --sidebar-foreground: 38 38% 92%;
+    --sidebar-primary: 0 62% 38%;
+    --sidebar-primary-foreground: 38 40% 95%;
+    --sidebar-accent: 210 28% 15%;
+    --sidebar-accent-foreground: 38 38% 92%;
+    --sidebar-border: 210 26% 19%;
+    --sidebar-ring: 38 55% 62%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .container-narrow {
+    @apply mx-auto max-w-6xl px-6 md:px-10;
+  }
+  .container-wide {
+    @apply mx-auto max-w-[1480px] px-6 md:px-10;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[0.7rem] tracking-[0.3em] uppercase text-accent font-medium;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply block h-px w-10 bg-accent/60;
+  }
+  .display-xl {
+    @apply font-display text-[clamp(2.75rem,7vw,6.5rem)] leading-[0.95] tracking-tight;
+  }
+  .display-lg {
+    @apply font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[1] tracking-tight;
+  }
+  .italic-accent {
+    @apply italic text-accent font-normal;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+  }
+  .hover-lift {
+    @apply transition-all duration-500 ease-out hover:-translate-y-1;
+  }
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-accent after:transition-all after:duration-500 hover:after:w-full;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .mask-fade-b {
+    mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+  }
+}

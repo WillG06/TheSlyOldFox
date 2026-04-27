@@ -1,0 +1,321 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════
+   BLACK MANGO — Self-hosted @font-face
+   ───────────────────────────────────────────────────────────────
+   To activate: purchase from blackmango.com or myfonts.com, then
+   drop the woff2 files into /public/fonts/ matching the names below.
+   Until files are present, the fallback chain (Cormorant Garamond)
+   renders automatically.
+   ═══════════════════════════════════════════════════════════════ */
+@font-face {
+  font-family: "Black Mango";
+  src: url("/fonts/BlackMango-Regular.woff2") format("woff2"),
+       url("/fonts/BlackMango-Regular.woff")  format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Black Mango";
+  src: url("/fonts/BlackMango-Medium.woff2") format("woff2"),
+       url("/fonts/BlackMango-Medium.woff")  format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Black Mango";
+  src: url("/fonts/BlackMango-SemiBold.woff2") format("woff2"),
+       url("/fonts/BlackMango-SemiBold.woff")  format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Black Mango";
+  src: url("/fonts/BlackMango-Italic.woff2") format("woff2"),
+       url("/fonts/BlackMango-Italic.woff")  format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ─── Design tokens ───────────────────────────────────────── */
+:root {
+  --ink:         #0B1118;
+  --navy:        #14243A;
+  --navy-mid:    #1C3150;
+  --burgundy:    #7B1D2C;
+  --burg-light:  #A0283C;
+  --hazel:       #C4A06B;
+  --hazel-light: #D4B485;
+  --hazel-dark:  #9A7840;
+  --cream:       #F2EAD9;
+  --cream-dim:   #C9B99A;
+  --slate:       #6B7E8A;
+
+  /* Typography scale */
+  --body-size:      0.825rem;   /* slightly reduced for elegance */
+  --body-lh:        1.85;
+  --body-ls:        0.01em;
+  --label-size:     0.62rem;
+  --label-ls:       0.26em;
+  --btn-size:       0.68rem;
+  --btn-ls:         0.18em;
+}
+
+/* ─── Base ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: "Quicksand", system-ui, sans-serif;
+  font-weight: 300;
+  font-size: var(--body-size);
+  line-height: var(--body-lh);
+  letter-spacing: var(--body-ls);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* All headings use Black Mango (falls back to Cormorant Garamond) */
+h1, h2, h3, h4, h5, h6,
+.font-serif {
+  font-family: "Black Mango", "Cormorant Garamond", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--burgundy); }
+
+/* ─── Film grain ──────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+/* ─── Reveal animations ───────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 1.1s cubic-bezier(0.16,1,0.3,1),
+              transform 1.1s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.from-left  { transform: translateX(-48px); }
+.reveal.from-right { transform: translateX(48px); }
+.reveal.scale-in   { transform: scale(0.94); }
+.reveal.visible    { opacity: 1; transform: translate(0) scale(1); }
+
+.d1 { transition-delay: 80ms  !important; }
+.d2 { transition-delay: 160ms !important; }
+.d3 { transition-delay: 240ms !important; }
+.d4 { transition-delay: 320ms !important; }
+.d5 { transition-delay: 400ms !important; }
+.d6 { transition-delay: 520ms !important; }
+
+/* ─── Word-split reveal ───────────────────────────────────── */
+.word-reveal .word {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.word-reveal .word span {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.word-reveal.visible .word span { transform: translateY(0); }
+.word-reveal .word:nth-child(1) span { transition-delay: 0ms; }
+.word-reveal .word:nth-child(2) span { transition-delay: 75ms; }
+.word-reveal .word:nth-child(3) span { transition-delay: 150ms; }
+.word-reveal .word:nth-child(4) span { transition-delay: 225ms; }
+.word-reveal .word:nth-child(5) span { transition-delay: 300ms; }
+.word-reveal .word:nth-child(6) span { transition-delay: 375ms; }
+.word-reveal .word:nth-child(7) span { transition-delay: 450ms; }
+.word-reveal .word:nth-child(8) span { transition-delay: 525ms; }
+.word-reveal .word:nth-child(9) span { transition-delay: 600ms; }
+
+/* ─── Section label ──────────────────────────────────────── */
+.section-label {
+  font-family: "Quicksand", system-ui, sans-serif;
+  font-size: var(--label-size);
+  font-weight: 400;
+  letter-spacing: var(--label-ls);
+  text-transform: uppercase;
+  color: var(--hazel);
+}
+
+/* ─── Rule ────────────────────────────────────────────────── */
+.rule {
+  display: inline-block;
+  width: 36px;
+  height: 1px;
+  background: var(--hazel);
+  vertical-align: middle;
+  margin-right: 0.75rem;
+}
+
+/* ─── Hazel gradient text ────────────────────────────────── */
+.text-hazel-gradient {
+  background: linear-gradient(125deg, var(--hazel-dark) 0%, var(--hazel-light) 55%, var(--hazel) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Quicksand", system-ui, sans-serif;
+  font-size: var(--btn-size);
+  font-weight: 500;
+  letter-spacing: var(--btn-ls);
+  text-transform: uppercase;
+  padding: 0.85rem 2.2rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.06);
+  transform: translateX(-101%);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.btn:hover::after { transform: translateX(0); }
+
+.btn-primary {
+  background: var(--burgundy);
+  color: var(--cream);
+  border: 1px solid var(--burgundy);
+}
+.btn-primary:hover { background: var(--burg-light); border-color: var(--burg-light); }
+
+.btn-hazel {
+  background: var(--hazel);
+  color: var(--ink);
+  border: 1px solid var(--hazel);
+}
+.btn-hazel:hover { background: var(--hazel-light); border-color: var(--hazel-light); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(242,234,217,0.2);
+}
+.btn-outline:hover { border-color: var(--hazel); color: var(--hazel); }
+
+/* ─── Navigation link underline ─────────────────────────── */
+.nav-link {
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--hazel);
+  transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+
+/* ─── Menu row ───────────────────────────────────────────── */
+.menu-row {
+  border-bottom: 1px solid rgba(242,234,217,0.06);
+  padding: 1.15rem 0.5rem 1.15rem 0;
+  transition: padding-left 0.3s ease, background 0.3s ease;
+}
+.menu-row:hover { padding-left: 0.55rem; background: rgba(196,160,107,0.035); }
+
+/* ─── Gallery cell ───────────────────────────────────────── */
+.gcell { overflow: hidden; position: relative; }
+.gcell img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.gcell:hover img { transform: scale(1.06); }
+.gcell-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(11,17,24,0.72) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  display: flex; align-items: flex-end;
+  padding: 1rem 1.2rem;
+}
+.gcell:hover .gcell-overlay { opacity: 1; }
+.gcell-label {
+  font-family: "Quicksand", sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--hazel-light);
+  transform: translateY(6px);
+  transition: transform 0.4s ease;
+}
+.gcell:hover .gcell-label { transform: translateY(0); }
+
+/* ─── Form fields ────────────────────────────────────────── */
+.field {
+  width: 100%;
+  background: rgba(28,49,80,0.5);
+  border: 1px solid rgba(242,234,217,0.1);
+  color: var(--cream);
+  font-family: "Quicksand", system-ui, sans-serif;
+  font-weight: 300;
+  font-size: var(--body-size);
+  letter-spacing: 0.02em;
+  padding: 0.9rem 1rem;
+  outline: none;
+  transition: border-color 0.35s ease;
+}
+.field::placeholder { color: var(--slate); }
+.field:focus { border-color: rgba(196,160,107,0.5); }
+select.field option { background: var(--navy); color: var(--cream); }
+
+/* ─── Slide-over panel system ────────────────────────────── */
+.panel-stack { position: relative; }
+.panel-image { position: sticky; top: 0; height: 100vh; z-index: 1; overflow: hidden; }
+.panel-solid { position: relative; z-index: 10; }
+
+/* ─── Event icon box ─────────────────────────────────────── */
+.ev-icon {
+  width: 50px; height: 50px;
+  border: 1px solid rgba(196,160,107,0.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.ev-icon svg { width: 20px; height: 20px; color: var(--hazel); }
+.group:hover .ev-icon { border-color: var(--burgundy); background: rgba(123,29,44,0.14); }
+
+/* ─── No scrollbar ───────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─── Carousel keyframe ──────────────────────────────────── */
+@keyframes carouselScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

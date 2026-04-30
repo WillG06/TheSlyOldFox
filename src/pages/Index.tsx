@@ -62,8 +62,8 @@ const Index = () => {
             </Reveal>
             <Reveal delay={0.55}>
               <h1 className="display-xl text-balance max-w-5xl">
-                A pub worth <span className="italic-accent">remembering,</span><br />
-                a corner worth <span className="italic-accent">returning</span> to.
+                Cunning by nature.<br />
+                <span className="italic-accent">Central by design.</span>
               </h1>
             </Reveal>
             <Reveal delay={0.75}>
